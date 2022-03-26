@@ -1,0 +1,21 @@
+## Code Structure:
+    #Top Level Directories
+        #base: basic types and constants
+        #loader: service to load / fetch resources
+        #memory: memory manager (creates own memory pool)
+        #transfor: contains classes related to actually transforming from input data to desired output format
+        #engine: Interface to outside world
+
+## How to intantiate:
+    #{Algorithm} class needs to be intantiated and then |start| function can be called with url
+
+
+ ##Architecture:
+
+    1. Algorithm class owns ResourceLoader and Transformer classes.
+    2. Both ResourceLoader and Transformer classes should support Asynchronous submission of requests.
+    3. ResourceLoader instantiates and owns respective loader for http/https, file://, bundler:// etc.
+        It takes an instance of LoadResponse object which notifies for data back to Algorithm class in this case.
+
+    4. Transformer class instantiates and owns the specific conversion.
+        It notifies back to Algorithm via TransformResponse callback when done.
